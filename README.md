@@ -11,7 +11,7 @@ Import...
 You connect and subscribe...
 
     // connecting will automatically load application.js from http://yourHost:yourPort/application.js
-    [[JuggernautController sharedController] connectToHost:"localhost" port:"8080"];
+    [[JuggernautController sharedController] connectToHost:"localhost" port:8080];
     
     [[JuggernautController sharedController] subscribe:"some-channel"];
 
