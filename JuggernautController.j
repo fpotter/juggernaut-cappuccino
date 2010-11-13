@@ -38,6 +38,7 @@ var SharedJuggernautController = nil,
 {
     CPString _host;
     int _port;
+    BOOL _secure;
     
     JSObject _jug;
     CPArray _queue;
@@ -66,7 +67,7 @@ var SharedJuggernautController = nil,
     return self;
 }
 
-- (void)connectToHost:(CPString)host port:(int)port
+- (void)connectToHost:(CPString)host port:(int)port secure:(BOOL)secure
 {
     if (JuggernautHasLoadedScript)
     {
@@ -76,9 +77,10 @@ var SharedJuggernautController = nil,
     
     _host = host;
     _port = port;
+    _secure = secure;
     
     var script = document.createElement("script");
-    script.src = "http://" + _host + ":" + _port + "/application.js";
+    script.src = (_secure ? "https" : "http") + "://" + _host + ":" + _port + "/application.js";
     script.type = "text/javascript";
     script.charset = "UTF-8";
     document.getElementsByTagName("head")[0].appendChild(script);
@@ -105,7 +107,8 @@ var SharedJuggernautController = nil,
 {
     _jug = new Juggernaut({
         host : _host,
-        port : _port
+        port : _port,
+        secure : _secure
     });
 
     _jug.on("connect", function()
